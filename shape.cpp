@@ -4,7 +4,6 @@
 
 #include "shape.h"
 
-
 void Shape::Draw(Image& img) const
 {
     Size img_size = img.GetSize();
@@ -33,8 +32,6 @@ void Shape::Draw(Image& img) const
         }
     }
 }
-
-
 
 Circle::Circle(Point center, double radius) : center_(center)
 , radius_(radius)
@@ -69,6 +66,11 @@ void Circle::SetPointCenter(Point center)
 Point Circle::GetPointCenter() const
 {
     return center_;
+}
+
+std::shared_ptr<Shape> Circle::Clone() const
+{
+    return std::make_shared<Circle>(*this);
 }
 
 void Circle::UpdateBoundingBox() {
@@ -144,6 +146,11 @@ Point Ellipse::GetFocus_2() const
     return focus_2_;
 }
 
+std::shared_ptr<Shape> Ellipse::Clone() const
+{
+    return std::make_shared<Ellipse>(*this);
+}
+
 void Ellipse::UpdateBoundingBox()
 {
     double left_top_x = std::min(focus_1_.x, focus_2_.x) - semi_major_;
@@ -202,6 +209,11 @@ Point Square::GetPoint() const
     return point_;
 }
 
+std::shared_ptr<Shape> Square::Clone() const
+{
+    return std::make_shared<Square>(*this);
+}
+
 Rectangle::Rectangle(Point point, Size size) : point_(point), size_(size)
 {
     UpdateBoundingBox();
@@ -237,6 +249,11 @@ Point Rectangle::GetPoint() const
     return point_;
 }
 
+std::shared_ptr<Shape> Rectangle::Clone() const
+{
+    return std::make_shared<Rectangle>(*this);
+}
+
 Triangle::Triangle(Point p1, Point p2, Point p3) : points({ p1, p2, p3 })
 {
     Validation();
@@ -258,6 +275,11 @@ bool Triangle::Check(Point p) const
         }
     }
     return false;
+}
+
+std::shared_ptr<Shape> Triangle::Clone() const
+{
+    return std::make_shared<Triangle>(*this);
 }
 
 void Triangle::Validation() const

@@ -15,6 +15,7 @@ public:
     virtual ~IDraw() = default;
 };
 
+
 class Shape : public IDraw
 {
 protected:
@@ -35,7 +36,7 @@ protected:
     virtual bool Check(Point) const = 0;
 
 public:
-
+    virtual std::shared_ptr<Shape> Clone() const = 0;
 
     virtual Point GetPosition() const
     {
@@ -73,6 +74,8 @@ public:
     void SetPointCenter(Point center);
     Point GetPointCenter() const;
 
+    std::shared_ptr<Shape> Clone() const override;
+
 private:
     Point center_;
     double radius_;
@@ -98,6 +101,8 @@ public:
     void SetFocus_2(Point center);
     Point GetFocus_2() const;
 
+    std::shared_ptr<Shape> Clone() const override;
+
 private:
     Point focus_1_;
     Point focus_2_;
@@ -120,6 +125,8 @@ public:
     void SetPoint(Point p);
     Point GetPoint() const;
 
+    std::shared_ptr<Shape> Clone() const override;
+
 private:
     Point point_;
     double side_length_;
@@ -141,6 +148,8 @@ public:
     void SetPoint(Point p);
     Point GetPoint() const;
 
+    std::shared_ptr<Shape> Clone() const override;
+
 private:
     Point point_;
     Size size_;
@@ -158,6 +167,7 @@ public:
 
     bool Check(Point p) const override;
 
+    std::shared_ptr<Shape> Clone() const override;
 private:
     std::array<Point, 3> points;
     Point vec_p2_p1_, vec_p3_p1_;
